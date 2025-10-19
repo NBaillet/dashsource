@@ -49,9 +49,9 @@ dotnet run --project DashSource.AppHost
 
 ## Running the Application
 
-### Using Aspire (Recommended)
+### Using Aspire in GitHub Codespaces (Recommended)
 
-The AppHost is configured with default arguments. You can run the entire application stack including PostgreSQL:
+When running in GitHub Codespaces, the Aspire AppHost will work automatically:
 
 ```bash
 dotnet run --project DashSource.AppHost
@@ -59,8 +59,10 @@ dotnet run --project DashSource.AppHost
 
 This will:
 1. Start PostgreSQL in a container
-2. Start PgAdmin for database management
+2. Open the Aspire Dashboard
 3. Run the scraper with default arguments
+
+**Note:** Aspire requires the Developer Control Plane (DCP) which is automatically configured in Codespaces. If running locally outside of Codespaces, you may need to install additional Aspire components.
 
 ### Running the Scraper Standalone
 
