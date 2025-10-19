@@ -16,10 +16,30 @@ builder.Services.AddScoped<JourneyService>();
 var host = builder.Build();
 
 // Ensure database is created and migrations are applied
+// Wait for database to be ready with retry logic
 using (var scope = host.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<JourneyDbContext>();
-    await context.Database.MigrateAsync();
+    
+    const int maxRetries = 10;
+    const int delayMs = 2000;
+    
+    for (int i = 0; i < maxRetries; i++)
+    {
+        try
+        {
+            Console.WriteLine($"Attempting to connect to database (attempt {i + 1}/{maxRetries})...");
+            await context.Database.MigrateAsync();
+            Console.WriteLine("Database migrations completed successfully.");
+            break;
+        }
+        catch (Exception ex) when (i < maxRetries - 1)
+        {
+            Console.WriteLine($"Database not ready yet: {ex.Message}");
+            Console.WriteLine($"Waiting {delayMs}ms before retry...");
+            await Task.Delay(delayMs);
+        }
+    }
 }
 
 // Parse command-line arguments
