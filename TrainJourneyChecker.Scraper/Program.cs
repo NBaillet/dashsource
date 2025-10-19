@@ -1,0 +1,60 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using TrainJourneyChecker.Scraper.Data;
+using TrainJourneyChecker.Scraper.Services;
+
+var builder = Host.CreateApplicationBuilder(args);
+
+builder.AddServiceDefaults();
+
+builder.AddNpgsqlDbContext<JourneyDbContext>("trainjourneydb");
+
+builder.Services.AddHttpClient<NationalRailScraper>();
+builder.Services.AddScoped<JourneyService>();
+
+var host = builder.Build();
+
+// Ensure database is created and migrations are applied
+using (var scope = host.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<JourneyDbContext>();
+    await context.Database.MigrateAsync();
+}
+
+// Parse command-line arguments
+if (args.Length < 3)
+{
+    Console.WriteLine("Usage: TrainJourneyChecker.Scraper <from-station> <to-station> <departure-datetime>");
+    Console.WriteLine("Example: TrainJourneyChecker.Scraper \"London Euston\" \"Manchester Piccadilly\" \"2025-10-20 09:00\"");
+    return 1;
+}
+
+var fromStation = args[0];
+var toStation = args[1];
+var departureDateTimeStr = args[2];
+
+if (!DateTime.TryParse(departureDateTimeStr, out var departureDateTime))
+{
+    Console.WriteLine($"Invalid datetime format: {departureDateTimeStr}");
+    Console.WriteLine("Please use format: yyyy-MM-dd HH:mm");
+    return 1;
+}
+
+Console.WriteLine($"Searching for journeys from {fromStation} to {toStation} departing after {departureDateTime:yyyy-MM-dd HH:mm}");
+
+// Run the scraper
+using (var scope = host.Services.CreateScope())
+{
+    var scraper = scope.ServiceProvider.GetRequiredService<NationalRailScraper>();
+    var journeyService = scope.ServiceProvider.GetRequiredService<JourneyService>();
+
+    var journeys = await scraper.ScrapeJourneysAsync(fromStation, toStation, departureDateTime);
+    Console.WriteLine($"Found {journeys.Count} journeys");
+
+    await journeyService.SaveJourneysAsync(journeys);
+    Console.WriteLine("Journey scraping completed successfully!");
+}
+
+return 0;
+
