@@ -6,6 +6,7 @@ var postgres = builder.AddPostgres("postgres")
 var database = postgres.AddDatabase("trainjourneydb");
 
 builder.AddProject<Projects.TrainJourneyChecker_Scraper>("scraper")
-    .WithReference(database);
+    .WithReference(database)
+    .WithArgs("London Euston", "Manchester Piccadilly", "2025-10-20 09:00");
 
 builder.Build().Run();
