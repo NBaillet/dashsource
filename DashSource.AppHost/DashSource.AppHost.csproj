@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>c73797dd-a60e-4a46-8e5f-240aad3bfcac</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DashSource.ApiService\DashSource.ApiService.csproj" />
+    <ProjectReference Include="..\DashSource.Web\DashSource.Web.csproj" />
+    <ProjectReference Include="..\DashSource.Scraper\DashSource.Scraper.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.5.1" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="9.5.1" />
+  </ItemGroup>
+
+</Project>
