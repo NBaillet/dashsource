@@ -1,5 +1,5 @@
-using TrainJourneyChecker.Web;
-using TrainJourneyChecker.Web.Components;
+using DashSource.Web;
+using DashSource.Web.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 

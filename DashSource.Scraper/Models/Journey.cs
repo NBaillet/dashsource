@@ -1,4 +1,4 @@
-namespace TrainJourneyChecker.Scraper.Models;
+namespace DashSource.Scraper.Models;
 
 public class Journey
 {

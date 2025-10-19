@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using TrainJourneyChecker.Scraper.Data;
-using TrainJourneyChecker.Scraper.Models;
+using DashSource.Scraper.Data;
+using DashSource.Scraper.Models;
 
-namespace TrainJourneyChecker.Scraper.Services;
+namespace DashSource.Scraper.Services;
 
 public class JourneyService
 {

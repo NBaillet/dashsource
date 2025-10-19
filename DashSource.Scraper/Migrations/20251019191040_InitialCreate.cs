@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace TrainJourneyChecker.Scraper.Migrations
+namespace DashSource.Scraper.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

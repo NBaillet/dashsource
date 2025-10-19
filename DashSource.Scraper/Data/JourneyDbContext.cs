@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using TrainJourneyChecker.Scraper.Models;
+using DashSource.Scraper.Models;
 
-namespace TrainJourneyChecker.Scraper.Data;
+namespace DashSource.Scraper.Data;
 
 public class JourneyDbContext : DbContext
 {

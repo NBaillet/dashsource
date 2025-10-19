@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TrainJourneyChecker.ServiceDefaults\TrainJourneyChecker.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\DashSource.ServiceDefaults\DashSource.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

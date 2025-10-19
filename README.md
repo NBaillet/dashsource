@@ -1,4 +1,4 @@
-# Train Journey Checker
+# DashSource
 
 A .NET Aspire application that scrapes train journey information from National Rail and stores it in a PostgreSQL database.
 
@@ -21,13 +21,31 @@ A .NET Aspire application that scrapes train journey information from National R
 - Docker (for running PostgreSQL)
 - Aspire workload (`dotnet workload install aspire`)
 
+## Development with GitHub Codespaces
+
+This project includes a devcontainer configuration for GitHub Codespaces, making it easy to start development in a fully configured environment:
+
+1. Click "Code" → "Create codespace on [branch-name]" in GitHub
+2. The environment will automatically:
+   - Install .NET 8 SDK
+   - Install Aspire workload
+   - Set up Docker-in-Docker for PostgreSQL
+   - Install VS Code extensions (C# DevKit, PostgreSQL)
+   - Configure development certificates
+
+Once the codespace is ready, you can immediately run:
+```bash
+dotnet run --project DashSource.AppHost
+```
+
 ## Project Structure
 
-- **TrainJourneyChecker.AppHost** - Aspire orchestration host
-- **TrainJourneyChecker.ServiceDefaults** - Shared service configurations
-- **TrainJourneyChecker.Scraper** - Console application for scraping journeys
-- **TrainJourneyChecker.ApiService** - (Template-generated, not used)
-- **TrainJourneyChecker.Web** - (Template-generated, not used)
+- **DashSource.AppHost** - Aspire orchestration host
+- **DashSource.ServiceDefaults** - Shared service configurations
+- **DashSource.Scraper** - Console application for scraping journeys
+- **DashSource.ApiService** - (Template-generated, not currently used)
+- **DashSource.Web** - (Template-generated, not currently used)
+- **.devcontainer/** - GitHub Codespaces configuration
 
 ## Running the Application
 
@@ -36,7 +54,7 @@ A .NET Aspire application that scrapes train journey information from National R
 The AppHost is configured with default arguments. You can run the entire application stack including PostgreSQL:
 
 ```bash
-dotnet run --project TrainJourneyChecker.AppHost
+dotnet run --project DashSource.AppHost
 ```
 
 This will:
@@ -53,7 +71,7 @@ You can also run the scraper directly with custom arguments:
 export ConnectionStrings__trainjourneydb="Host=localhost;Port=5432;Database=trainjourneydb;Username=postgres;Password=yourpassword"
 
 # Run the scraper
-cd TrainJourneyChecker.Scraper
+cd DashSource.Scraper
 dotnet run "London Euston" "Manchester Piccadilly" "2025-10-20 09:00"
 ```
 
@@ -120,7 +138,7 @@ The fallback mock implementation generates 10 journeys with varying departure ti
 ### Adding Migrations
 
 ```bash
-cd TrainJourneyChecker.Scraper
+cd DashSource.Scraper
 dotnet ef migrations add MigrationName
 ```
 

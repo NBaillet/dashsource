@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TrainJourneyChecker.Scraper.Data;
-using TrainJourneyChecker.Scraper.Services;
+using DashSource.Scraper.Data;
+using DashSource.Scraper.Services;
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -25,8 +25,8 @@ using (var scope = host.Services.CreateScope())
 // Parse command-line arguments
 if (args.Length < 3)
 {
-    Console.WriteLine("Usage: TrainJourneyChecker.Scraper <from-station> <to-station> <departure-datetime>");
-    Console.WriteLine("Example: TrainJourneyChecker.Scraper \"London Euston\" \"Manchester Piccadilly\" \"2025-10-20 09:00\"");
+    Console.WriteLine("Usage: DashSource.Scraper <from-station> <to-station> <departure-datetime>");
+    Console.WriteLine("Example: DashSource.Scraper \"London Euston\" \"Manchester Piccadilly\" \"2025-10-20 09:00\"");
     return 1;
 }
 

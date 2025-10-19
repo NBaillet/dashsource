@@ -2,21 +2,18 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using TrainJourneyChecker.Scraper.Data;
+using DashSource.Scraper.Data;
 
 #nullable disable
 
-namespace TrainJourneyChecker.Scraper.Migrations
+namespace DashSource.Scraper.Migrations
 {
     [DbContext(typeof(JourneyDbContext))]
-    [Migration("20251019191040_InitialCreate")]
-    partial class InitialCreate
+    partial class JourneyDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,7 +22,7 @@ namespace TrainJourneyChecker.Scraper.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("TrainJourneyChecker.Scraper.Models.Journey", b =>
+            modelBuilder.Entity("DashSource.Scraper.Models.Journey", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

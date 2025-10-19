@@ -10,9 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TrainJourneyChecker.ApiService\TrainJourneyChecker.ApiService.csproj" />
-    <ProjectReference Include="..\TrainJourneyChecker.Web\TrainJourneyChecker.Web.csproj" />
-    <ProjectReference Include="..\TrainJourneyChecker.Scraper\TrainJourneyChecker.Scraper.csproj" />
+    <ProjectReference Include="..\DashSource.ApiService\DashSource.ApiService.csproj" />
+    <ProjectReference Include="..\DashSource.Web\DashSource.Web.csproj" />
+    <ProjectReference Include="..\DashSource.Scraper\DashSource.Scraper.csproj" />
   </ItemGroup>
 
   <ItemGroup>

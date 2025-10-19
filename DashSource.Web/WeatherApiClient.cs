@@ -1,4 +1,4 @@
-namespace TrainJourneyChecker.Web;
+namespace DashSource.Web;
 
 public class WeatherApiClient(HttpClient httpClient)
 {

@@ -1,8 +1,8 @@
 using HtmlAgilityPack;
-using TrainJourneyChecker.Scraper.Models;
+using DashSource.Scraper.Models;
 using System.Text.RegularExpressions;
 
-namespace TrainJourneyChecker.Scraper.Services;
+namespace DashSource.Scraper.Services;
 
 public class NationalRailScraper : IDisposable
 {
