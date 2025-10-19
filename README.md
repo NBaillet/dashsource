@@ -100,13 +100,20 @@ If a matching journey exists, it won't be added again.
 
 ### National Rail Scraping
 
-The current implementation uses **mock data** for demonstration purposes. In a production environment, you would need to:
+The application attempts to scrape the National Rail website (www.nationalrail.co.uk) for journey information. Similar to the jobchecker application that scrapes NHS Jobs, this scraper:
 
-1. Use the National Rail Darwin API with proper credentials
-2. Implement proper web scraping with authentication
-3. Use a third-party API service
+1. **Attempts Real Web Scraping**: Sends HTTP requests to the National Rail journey planner
+2. **Parses HTML Responses**: Uses HtmlAgilityPack to extract journey information from the HTML
+3. **Graceful Fallback**: If the website blocks requests, changes structure, or returns no results, it falls back to generating mock data
+4. **Error Handling**: Includes comprehensive error handling and informative console output
 
-The mock implementation generates 10 journeys with varying departure times, durations, and delay statuses.
+**Note**: National Rail may block automated requests or require authentication. In production, you would:
+- Use the National Rail Darwin API with proper credentials
+- Implement rate limiting and retry logic
+- Add proxy rotation if needed
+- Consider using Selenium or Playwright for JavaScript-heavy pages
+
+The fallback mock implementation generates 10 journeys with varying departure times (30-minute intervals), durations (60-105 minutes), and realistic delay patterns (every third journey delayed by 5-17 minutes).
 
 ## Development
 

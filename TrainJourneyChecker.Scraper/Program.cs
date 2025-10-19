@@ -52,9 +52,15 @@ using (var scope = host.Services.CreateScope())
     var journeys = await scraper.ScrapeJourneysAsync(fromStation, toStation, departureDateTime);
     Console.WriteLine($"Found {journeys.Count} journeys");
 
+    // Store journeys in database
     await journeyService.SaveJourneysAsync(journeys);
     Console.WriteLine("Journey scraping completed successfully!");
 }
+
+Console.WriteLine();
+Console.WriteLine("Note: This application attempts to scrape the National Rail website.");
+Console.WriteLine("If the website blocks automated requests or the structure has changed,");
+Console.WriteLine("it will fall back to generating mock data for demonstration purposes.");
 
 return 0;
 
