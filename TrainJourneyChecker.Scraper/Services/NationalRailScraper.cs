@@ -6,13 +6,14 @@ namespace TrainJourneyChecker.Scraper.Services;
 public class NationalRailScraper
 {
     private readonly HttpClient _httpClient;
+    private const int DefaultJourneyCount = 10;
 
     public NationalRailScraper(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
 
-    public async Task<List<Journey>> ScrapeJourneysAsync(string fromStation, string toStation, DateTime departureDateTime)
+    public Task<List<Journey>> ScrapeJourneysAsync(string fromStation, string toStation, DateTime departureDateTime)
     {
         var journeys = new List<Journey>();
 
@@ -38,51 +39,39 @@ public class NationalRailScraper
             // For now, generate mock journey data for demonstration
             Console.WriteLine($"Generating mock journey data from {fromStation} to {toStation}...");
             
-            // Generate 10 mock journeys for demonstration
-            for (int i = 0; i < 10; i++)
-            {
-                var departure = departureDateTime.AddMinutes(i * 30);
-                var duration = 60 + (i * 5); // Journey duration varies
-                var arrival = departure.AddMinutes(duration);
-                var isDelayed = i % 3 == 0; // Every third journey is delayed
-                var delayMinutes = isDelayed ? 5 + (i * 2) : 0;
-
-                journeys.Add(new Journey
-                {
-                    FromStation = fromStation,
-                    ToStation = toStation,
-                    DepartureTime = departure,
-                    ArrivalTime = arrival.AddMinutes(delayMinutes),
-                    IsOnTime = !isDelayed,
-                    DelayMinutes = delayMinutes,
-                    ScrapedAt = DateTime.UtcNow
-                });
-            }
+            journeys = GenerateMockJourneys(fromStation, toStation, departureDateTime);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Note: Using mock data due to: {ex.Message}");
-            
-            // Generate 10 mock journeys even on error
-            for (int i = 0; i < 10; i++)
-            {
-                var departure = departureDateTime.AddMinutes(i * 30);
-                var duration = 60 + (i * 5); // Journey duration varies
-                var arrival = departure.AddMinutes(duration);
-                var isDelayed = i % 3 == 0; // Every third journey is delayed
-                var delayMinutes = isDelayed ? 5 + (i * 2) : 0;
+            journeys = GenerateMockJourneys(fromStation, toStation, departureDateTime);
+        }
 
-                journeys.Add(new Journey
-                {
-                    FromStation = fromStation,
-                    ToStation = toStation,
-                    DepartureTime = departure,
-                    ArrivalTime = arrival.AddMinutes(delayMinutes),
-                    IsOnTime = !isDelayed,
-                    DelayMinutes = delayMinutes,
-                    ScrapedAt = DateTime.UtcNow
-                });
-            }
+        return Task.FromResult(journeys);
+    }
+
+    private List<Journey> GenerateMockJourneys(string fromStation, string toStation, DateTime departureDateTime)
+    {
+        var journeys = new List<Journey>();
+
+        for (int i = 0; i < DefaultJourneyCount; i++)
+        {
+            var departure = departureDateTime.AddMinutes(i * 30);
+            var duration = 60 + (i * 5); // Journey duration varies
+            var arrival = departure.AddMinutes(duration);
+            var isDelayed = i % 3 == 0; // Every third journey is delayed
+            var delayMinutes = isDelayed ? 5 + (i * 2) : 0;
+
+            journeys.Add(new Journey
+            {
+                FromStation = fromStation,
+                ToStation = toStation,
+                DepartureTime = departure,
+                ArrivalTime = arrival.AddMinutes(delayMinutes),
+                IsOnTime = !isDelayed,
+                DelayMinutes = delayMinutes,
+                ScrapedAt = DateTime.UtcNow
+            });
         }
 
         return journeys;
